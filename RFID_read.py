@@ -11,7 +11,7 @@ import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
 
 # 전역변수
-data_id = ['관리자 코드'] #데이터 초기화
+data_id = ['659122598553'] #데이터 초기화
 reader = SimpleMFRC522() #RFID 객체 생성
 
 # 봇 토큰을 사용하여 봇을 초기화
