@@ -20,7 +20,8 @@ bot_token = '6873483008:AAEh14eISGJdMR_zRP861w_FMrkrYUcd1t8'
 bot = telepot.Bot(bot_token)
 
 # GPIO 세팅
-GPIO.setmode(GPIO.BCM)
+GPIO.cleanup()
+GPIO.setmode(GPIO.BOARD)
 GPIO.setup(21,GPIO.OUT) # 21번 핀
 GPIO.setup(24,GPIO.OUT) # 24번 핀
 GPIO.output(21, False) # red
