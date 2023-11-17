@@ -5,15 +5,18 @@ sudo pip3 install mfrc522
 """
 import telepot
 import time
+from datetime import datetime
 import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
+
+# 전역변수
 data_id = ['관리자 코드'] #데이터 초기화
 reader = SimpleMFRC522() #RFID 객체 생성
+# 봇 토큰을 사용하여 봇을 초기화
+bot_token = '6873483008:AAEh14eISGJdMR_zRP861w_FMrkrYUcd1t8'
+bot = telepot.Bot(bot_token)
 
 def telbot_get_chatid():
-    # 봇 토큰을 사용하여 봇을 초기화
-    bot_token = '6873483008:AAEh14eISGJdMR_zRP861w_FMrkrYUcd1t8'
-    bot = telepot.Bot(bot_token)
 
     # 대기 시간 동안 메시지를 체크
     start_time = time.time()
@@ -46,14 +49,25 @@ def register(id):
     reader.write(chat_id)
     print("카드 등록 완료")
 
+def send_telegram_massage(id, t):
+    """
+    텔레그램 메시지 전송 함수
+    id: chat id
+    t: time
+    """
+
+    message = f"{id}님 카드 태그 성공 메시지입니다.\n시간: {t}"
+    bot.sendMessage(id, t)
 
 #!/usr/bin/env python
 
 
-
+# 메인부분
 try:
     while True:
         id, text = reader.read()
+        print(f"현재 Tag한 id: {id}")
+        
         if(id == "관리자 코드"):
             id, text = reader.read()
             print('등록할 카드 태그')
@@ -63,13 +77,13 @@ try:
             register(id)
             continue
         
-        for i in data_id:
-            if(id == data_id):
-                #통과
-                
-                continue
-
-        print("Access denied")
+        if id in data_id:
+            # 서버 모터로 문 오픈
+            
+            # 텔레그램 봇으로 메시지 전송
+            send_telegram_massage(text, datetime.now())
+        else:
+            print("Access denied")
         
 
         #led 추가
@@ -78,9 +92,9 @@ except KeyboardInterrupt:
 
 
 
-#시간 구하기
-from datetime import datetime
 
+"""
+#시간 구하기
 now = datetime.now()
 print(now)
 
