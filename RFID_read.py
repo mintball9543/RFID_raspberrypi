@@ -5,6 +5,7 @@ sudo pip3 install mfrc522
 """
 import telepot
 import time
+from time import sleep
 from datetime import datetime
 import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
@@ -12,11 +13,23 @@ from mfrc522 import SimpleMFRC522
 # 전역변수
 data_id = ['관리자 코드'] #데이터 초기화
 reader = SimpleMFRC522() #RFID 객체 생성
+
 # 봇 토큰을 사용하여 봇을 초기화
 bot_token = '6873483008:AAEh14eISGJdMR_zRP861w_FMrkrYUcd1t8'
 bot = telepot.Bot(bot_token)
 
+# GPIO 세팅
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(21,GPIO.OUT) # 21번 핀
+GPIO.setup(24,GPIO.OUT) # 24번 핀
+GPIO.output(21, False) # red
+GPIO.output(24, False) # green
+
+
 def telbot_get_chatid():
+    """
+    텔레그램 봇에서 받은 chat_id 얻는 함수
+    """
 
     # 대기 시간 동안 메시지를 체크
     start_time = time.time()
@@ -40,6 +53,10 @@ def telbot_get_chatid():
 
 
 def register(id):
+    """
+    새로운 RFID 태그 id 등록
+    """
+
     # 새로운 id를 기존 데이터 추가
     data_id.append(id)
 
@@ -78,15 +95,24 @@ try:
             continue
         
         if id in data_id:
-            # 서버 모터로 문 오픈
+            # 서보 모터로 문 오픈
             
+
             # 텔레그램 봇으로 메시지 전송
             send_telegram_massage(text, datetime.now())
+            
+            # green_led
+            GPIO.output(24, True)
+            sleep(5)
+            GPIO.output(24, False)
         else:
             print("Access denied")
-        
+            
+            # red_led
+            GPIO.output(21, True)
+            sleep(2)
+            GPIO.output(21, False)
 
-        #led 추가
 except KeyboardInterrupt:
     GPIO.cleanup()
 
@@ -100,3 +126,4 @@ print(now)
 
 # 출력결과
 # 2021-11-11 13:30:05.551179
+"""
