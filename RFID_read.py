@@ -11,8 +11,7 @@ import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
 
 # 전역변수
-manage_id = "659122598553"
-data_id = ['659122598553'] #데이터 초기화
+data_id = ['관리자 코드'] #데이터 초기화
 reader = SimpleMFRC522() #RFID 객체 생성
 
 # 봇 토큰을 사용하여 봇을 초기화
@@ -20,8 +19,7 @@ bot_token = '6873483008:AAEh14eISGJdMR_zRP861w_FMrkrYUcd1t8'
 bot = telepot.Bot(bot_token)
 
 # GPIO 세팅
-GPIO.cleanup()
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(21,GPIO.OUT) # 21번 핀
 GPIO.setup(24,GPIO.OUT) # 24번 핀
 GPIO.output(21, False) # red
@@ -87,10 +85,10 @@ try:
         id, text = reader.read()
         print(f"현재 Tag한 id: {id}")
         
-        if(id == manage_id):
+        if(id == "관리자 코드"):
             id, text = reader.read()
             print('등록할 카드 태그')
-            if(id == manage_id):
+            if(id == "관리자 코드"):
                 print("등록취소")
                 continue
             register(id)
