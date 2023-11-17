@@ -11,6 +11,7 @@ import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
 
 # 전역변수
+manage_id = "659122598553"
 data_id = ['659122598553'] #데이터 초기화
 reader = SimpleMFRC522() #RFID 객체 생성
 
@@ -85,10 +86,10 @@ try:
         id, text = reader.read()
         print(f"현재 Tag한 id: {id}")
         
-        if(id == "관리자 코드"):
+        if(id == manage_id):
             id, text = reader.read()
             print('등록할 카드 태그')
-            if(id == "관리자 코드"):
+            if(id == manage_id):
                 print("등록취소")
                 continue
             register(id)
