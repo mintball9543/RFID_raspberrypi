@@ -11,7 +11,8 @@ import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
 
 # 전역변수
-data_id = ['관리자 코드'] #데이터 초기화
+manage_id = "659122598553"
+data_id = ["659122598553"] #데이터 초기화
 reader = SimpleMFRC522() #RFID 객체 생성
 
 # 봇 토큰을 사용하여 봇을 초기화
@@ -19,11 +20,12 @@ bot_token = '6873483008:AAEh14eISGJdMR_zRP861w_FMrkrYUcd1t8'
 bot = telepot.Bot(bot_token)
 
 # GPIO 세팅
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(21,GPIO.OUT) # 21번 핀
-GPIO.setup(24,GPIO.OUT) # 24번 핀
-GPIO.output(21, False) # red
-GPIO.output(24, False) # green
+GPIO.setup(22, GPIO.OUT)
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(18,GPIO.OUT)
+GPIO.setup(40,GPIO.OUT)
+GPIO.output(18, False) # red
+GPIO.output(40, False) # green
 
 
 def telbot_get_chatid():
@@ -66,7 +68,7 @@ def register(id):
     reader.write(chat_id)
     print("카드 등록 완료")
 
-def send_telegram_massage(id, t):
+def send_telegram_message(id, t):
     """
     텔레그램 메시지 전송 함수
     id: chat id
@@ -74,9 +76,29 @@ def send_telegram_massage(id, t):
     """
 
     message = f"{id}님 카드 태그 성공 메시지입니다.\n시간: {t}"
-    bot.sendMessage(id, t)
+    bot.sendMessage(id, message)
 
-#!/usr/bin/env python
+def open_door():
+    """
+    서보모터로 문을 열어주는 함수
+    """
+    # 서보 모터에 50Hz 주기로 PWM 생성
+    servo = GPIO.PWM(22, 50)
+    # pwm 신호를 2.5%로 시작
+    servo.start(2.5)
+    # duty cycle을 12.5%로 변경
+    servo.ChangeDutyCycle(12.5)
+
+def close_door():
+    """
+    서보모터로 문을 닫아주는 함수
+    """
+    # 서보 모터에 50Hz 주기로 PWM 생성
+    servo = GPIO.PWM(22, 50)
+    # pwm 신호를 2.5%로 시작
+    servo.start(2.5)
+    # duty cycle을 5%로 변경
+    servo.ChangeDutyCycle(5)
 
 
 # 메인부분
@@ -85,33 +107,36 @@ try:
         id, text = reader.read()
         print(f"현재 Tag한 id: {id}")
         
-        if(id == "관리자 코드"):
+        if(id == manage_id):
             id, text = reader.read()
             print('등록할 카드 태그')
-            if(id == "관리자 코드"):
+            if(id == manage_id):
                 print("등록취소")
                 continue
             register(id)
             continue
         
         if id in data_id:
-            # 서보 모터로 문 오픈
-            
-
             # 텔레그램 봇으로 메시지 전송
-            send_telegram_massage(text, datetime.now())
+            send_telegram_message(text, datetime.now())
             
+            # 서보 모터로 문 오픈
             # green_led
-            GPIO.output(24, True)
-            sleep(5)
-            GPIO.output(24, False)
+            open_door()
+            GPIO.output(40, True)
+            
+            sleep(5) # 5초 대기
+            
+            # 서보 모터로 문 닫기
+            close_door()
+            GPIO.output(40, False)
         else:
             print("Access denied")
             
             # red_led
-            GPIO.output(21, True)
+            GPIO.output(18, True)
             sleep(2)
-            GPIO.output(21, False)
+            GPIO.output(18, False)
 
 except KeyboardInterrupt:
     GPIO.cleanup()
