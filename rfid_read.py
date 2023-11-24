@@ -124,6 +124,7 @@ try:
             id, text = reader.read()
             sleep(2)
             print('등록할 카드 태그')
+            id, text = reader.read()
             if(id == manage_id):
                 print("등록취소")
                 continue
