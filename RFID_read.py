@@ -16,7 +16,7 @@ data_id = [659122598553] #데이터 초기화
 reader = SimpleMFRC522() #RFID 객체 생성
 red_led = 18
 green_led = 40
-servo_pin = 22
+servo_pin = 12
 
 # 봇 토큰을 사용하여 봇을 초기화
 bot_token = '6873483008:AAEh14eISGJdMR_zRP861w_FMrkrYUcd1t8'
