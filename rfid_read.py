@@ -39,6 +39,8 @@ def telbot_get_chatid():
     # 대기 시간 동안 메시지를 체크
     start_time = time.time()
     wait_time = 30
+
+    print("제공되었던 봇으로 아무 메시지를 보내세요. : 30seconds wait...")
     while time.time() - start_time < wait_time:
         try:
             # 메시지 수신
@@ -66,6 +68,12 @@ def register(id):
     data_id.append(id)
 
     chat_id = telbot_get_chatid()
+
+    if chat_id == None:
+        data_id.remove(id)
+        print("텔레그램 봇에 메시지를 보내지 않아 등록이 취소되었습니다.")
+        return
+    
     # 새로운 데이터 쓰기
     GPIO.output(green_led, True)
     print("다시 한번 등록할 카드 태그")
@@ -114,6 +122,7 @@ try:
 
         if(id == manage_id):
             id, text = reader.read()
+            sleep(2)
             print('등록할 카드 태그')
             if(id == manage_id):
                 print("등록취소")
