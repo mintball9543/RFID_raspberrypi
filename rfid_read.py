@@ -42,6 +42,8 @@ def telbot_get_chatid():
 
     print("제공되었던 봇으로 아무 메시지를 보내세요. : 30seconds wait...")
     while time.time() - start_time < wait_time:
+        if (time.time() - start_time % 10) == 0:
+            print(time.time() - start_time)
         try:
             # 메시지 수신
             response = bot.getUpdates()
