@@ -11,9 +11,12 @@ import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
 
 # 전역변수
-manage_id = "659122598553"
-data_id = ["659122598553"] #데이터 초기화
+manage_id = 659122598553
+data_id = [659122598553] #데이터 초기화
 reader = SimpleMFRC522() #RFID 객체 생성
+red_led = 18
+green_led = 40
+servo_pin = 22
 
 # 봇 토큰을 사용하여 봇을 초기화
 bot_token = '6873483008:AAEh14eISGJdMR_zRP861w_FMrkrYUcd1t8'
@@ -21,11 +24,11 @@ bot = telepot.Bot(bot_token)
 
 # GPIO 세팅
 GPIO.setmode(GPIO.BOARD) # BOARD: Pin 번호 사용
-GPIO.setup(22, GPIO.OUT) # 서보모터
-GPIO.setup(18,GPIO.OUT)
-GPIO.setup(40,GPIO.OUT)
-GPIO.output(18, False) # red
-GPIO.output(40, False) # green
+GPIO.setup(servo_pin, GPIO.OUT) # 서보모터
+GPIO.setup(red_led,GPIO.OUT)
+GPIO.setup(green_led,GPIO.OUT)
+GPIO.output(red_led, False) # red
+GPIO.output(green_led, False) # green
 
 
 def telbot_get_chatid():
@@ -64,10 +67,10 @@ def register(id):
 
     chat_id = telbot_get_chatid()
     # 새로운 데이터 쓰기
-    GPIO.output(40, True)
+    GPIO.output(green_led, True)
     print("다시 한번 등록할 카드 태그")
     reader.write(chat_id)
-    GPIO.output(40, False)
+    GPIO.output(green_led, False)
     print("카드 등록 완료")
 
 def send_telegram_message(id, t):
@@ -85,7 +88,7 @@ def open_door():
     서보모터로 문을 열어주는 함수
     """
     # 서보 모터에 50Hz 주기로 PWM 생성
-    servo = GPIO.PWM(22, 50)
+    servo = GPIO.PWM(servo_pin, 50)
     # pwm 신호를 2.5%로 시작
     servo.start(2.5)
     # duty cycle을 12.5%로 변경
@@ -96,7 +99,7 @@ def close_door():
     서보모터로 문을 닫아주는 함수
     """
     # 서보 모터에 50Hz 주기로 PWM 생성
-    servo = GPIO.PWM(22, 50)
+    servo = GPIO.PWM(servo_pin, 50)
     # pwm 신호를 2.5%로 시작
     servo.start(2.5)
     # duty cycle을 5%로 변경
@@ -108,7 +111,7 @@ try:
     while True:
         id, text = reader.read()
         print(f"현재 Tag한 id: {id}")
-        
+
         if(id == manage_id):
             id, text = reader.read()
             print('등록할 카드 태그')
@@ -125,20 +128,20 @@ try:
             # 서보 모터로 문 오픈
             # green_led
             open_door()
-            GPIO.output(40, True)
+            GPIO.output(green_led, True)
             
             sleep(5) # 5초 대기
             
             # 서보 모터로 문 닫기
             close_door()
-            GPIO.output(40, False)
+            GPIO.output(green_led, False)
         else:
             print("Access denied")
             
             # red_led
-            GPIO.output(18, True)
+            GPIO.output(red_led, True)
             sleep(2)
-            GPIO.output(18, False)
+            GPIO.output(red_led, False)
 
 except KeyboardInterrupt:
     GPIO.cleanup()
