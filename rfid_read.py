@@ -31,19 +31,30 @@ GPIO.output(red_led, False) # red
 GPIO.output(green_led, False) # green
 
 
+def handle_add(msg):
+    print("User used command /add")
+
+    return True
+    
 def telbot_get_chatid():
     """
     텔레그램 봇에서 받은 chat_id 얻는 함수
     """
+    temp = False
 
     # 대기 시간 동안 메시지를 체크
     start_time = time.time()
     wait_time = 60
 
-    print("제공되었던 봇으로 아무 메시지를 보내세요. : 30seconds wait...")
+    print("제공되었던 봇으로 /add 명령어를 보내세요 : 30seconds wait...")
     while time.time() - start_time < wait_time:
         if (time.time() - start_time % 10) == 0:
             print(time.time() - start_time)
+        
+        if temp == False:
+            temp = bot.message_loop(handle_add)
+            continue
+                
         try:
             # 메시지 수신
             response = bot.getUpdates()
@@ -79,7 +90,7 @@ def register(id):
     # 새로운 데이터 쓰기
     GPIO.output(green_led, True)
     print("다시 한번 등록할 카드 태그")
-    reader.write(chat_id)
+    reader.write(str(chat_id))
     GPIO.output(green_led, False)
     print("카드 등록 완료")
 
@@ -121,11 +132,12 @@ try:
     while True:
         id, text = reader.read()
         print(f"현재 Tag한 id: {id}")
+        text = int(text)
 
         if(id == manage_id):
             id, text = reader.read()
-            sleep(2)
             print('등록할 카드 태그')
+            sleep(2)
             id, text = reader.read()
             if(id == manage_id):
                 print("등록취소")
