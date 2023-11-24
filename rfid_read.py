@@ -38,7 +38,7 @@ def telbot_get_chatid():
 
     # 대기 시간 동안 메시지를 체크
     start_time = time.time()
-    wait_time = 30
+    wait_time = 60
 
     print("제공되었던 봇으로 아무 메시지를 보내세요. : 30seconds wait...")
     while time.time() - start_time < wait_time:
