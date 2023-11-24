@@ -1,8 +1,8 @@
 """
 sudo pip3 install spidev
 sudo pip3 install mfrc522
-
 """
+
 import telepot
 import time
 from time import sleep
@@ -20,8 +20,8 @@ bot_token = '6873483008:AAEh14eISGJdMR_zRP861w_FMrkrYUcd1t8'
 bot = telepot.Bot(bot_token)
 
 # GPIO 세팅
-GPIO.setup(22, GPIO.OUT)
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BOARD) # BOARD: Pin 번호 사용
+GPIO.setup(22, GPIO.OUT) # 서보모터
 GPIO.setup(18,GPIO.OUT)
 GPIO.setup(40,GPIO.OUT)
 GPIO.output(18, False) # red
@@ -45,7 +45,7 @@ def telbot_get_chatid():
                 chat_id = response[-1]['message']['chat']['id']
                 return chat_id
         except telepot.exception.TelegramError as e:
-            print("An error occurred:", e)
+            print("error:", e)
 
         # 1초 대기
         time.sleep(1)
@@ -64,8 +64,10 @@ def register(id):
 
     chat_id = telbot_get_chatid()
     # 새로운 데이터 쓰기
+    GPIO.output(40, True)
     print("다시 한번 등록할 카드 태그")
     reader.write(chat_id)
+    GPIO.output(40, False)
     print("카드 등록 완료")
 
 def send_telegram_message(id, t):
