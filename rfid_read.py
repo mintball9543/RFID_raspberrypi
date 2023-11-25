@@ -31,11 +31,6 @@ GPIO.output(red_led, False) # red
 GPIO.output(green_led, False) # green
 
 
-def handle_add(msg):
-    print("User used command /add")
-
-    return True
-    
 def telbot_get_chatid():
     """
     텔레그램 봇에서 받은 chat_id 얻는 함수
@@ -46,28 +41,19 @@ def telbot_get_chatid():
     start_time = time.time()
     wait_time = 60
 
-    print("제공되었던 봇으로 /add 명령어를 보내세요 : 30seconds wait...")
+    print("제공되었던 봇으로 아무 메시지를 보내세요 : 30seconds wait...")
     while time.time() - start_time < wait_time:
         if (time.time() - start_time % 10) == 0:
             print(time.time() - start_time)
         
-        if temp == False:
-            temp = bot.message_loop(handle_add)
-            continue
-                
-        try:
-            # 메시지 수신
-            response = bot.getUpdates()
-            if response:
+        # 메시지 수신
+        response = bot.getUpdates()
+        if response:
+            if response[-1]['message']['date'] - start_time > 0:
                 # 가장 최근 메시지의 채팅 ID 반환
                 chat_id = response[-1]['message']['chat']['id']
                 return chat_id
-        except telepot.exception.TelegramError as e:
-            print("error:", e)
-
-        # 1초 대기
-        time.sleep(1)
-
+    
     # 대기 시간 동안 아무 메시지도 수신되지 않은 경우 None 반환
     return None
 
@@ -132,7 +118,7 @@ try:
     while True:
         id, text = reader.read()
         print(f"현재 Tag한 id: {id}")
-        print(type(text))
+        text = int(text)
 
         if(id == manage_id):
             id, text = reader.read()
@@ -169,7 +155,8 @@ try:
 
 except KeyboardInterrupt:
     GPIO.cleanup()
-
+finally:
+    GPIO.cleanup()
 
 
 
