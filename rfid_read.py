@@ -17,6 +17,7 @@ reader = SimpleMFRC522() #RFID 객체 생성
 red_led = 18
 green_led = 40
 servo_pin = 12
+id_name = dict()
 
 # 봇 토큰을 사용하여 봇을 초기화
 bot_token = '6873483008:AAEh14eISGJdMR_zRP861w_FMrkrYUcd1t8'
@@ -52,10 +53,11 @@ def telbot_get_chatid():
             if response[-1]['message']['date'] - start_time > 0:
                 # 가장 최근 메시지의 채팅 ID 반환
                 chat_id = response[-1]['message']['chat']['id']
-                return chat_id
+                name = response[-1]['text']
+                return chat_id, name
     
     # 대기 시간 동안 아무 메시지도 수신되지 않은 경우 None 반환
-    return None
+    return None, None
 
 
 def register(id):
@@ -66,7 +68,7 @@ def register(id):
     # 새로운 id를 기존 데이터 추가
     data_id.append(id)
 
-    chat_id = telbot_get_chatid()
+    chat_id, name = telbot_get_chatid()
 
     if chat_id == None:
         data_id.remove(id)
@@ -77,6 +79,7 @@ def register(id):
     GPIO.output(green_led, True)
     print("다시 한번 등록할 카드 태그")
     reader.write(str(chat_id))
+    id_name[id] = name
     GPIO.output(green_led, False)
     print("카드 등록 완료")
 
@@ -87,7 +90,7 @@ def send_telegram_message(id, t):
     t: time
     """
 
-    message = f"{id}님 카드 태그 성공 메시지입니다.\n시간: {t}"
+    message = f"{id_name[id]}님 카드 태그 성공 메시지입니다.\n시간: {t}"
     bot.sendMessage(id, message)
 
 def open_door():
