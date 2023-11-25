@@ -118,7 +118,10 @@ try:
     while True:
         id, text = reader.read()
         print(f"현재 Tag한 id: {id}")
-        text = int(text)
+        try:
+            text = int(text)
+        except:
+            print("text 변수가 chat_id가 아님")
 
         if(id == manage_id):
             id, text = reader.read()
