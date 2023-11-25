@@ -132,7 +132,7 @@ try:
     while True:
         id, text = reader.read()
         print(f"현재 Tag한 id: {id}")
-        text = int(text)
+        print(type(text))
 
         if(id == manage_id):
             id, text = reader.read()
