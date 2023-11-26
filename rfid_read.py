@@ -42,7 +42,23 @@ def telbot_get_chatid():
     start_time = time.time()
     wait_time = 60
 
-    print("제공되었던 봇으로 아무 메시지를 보내세요 : 60seconds wait...")
+    print("제공되었던 봇으로 이름을 보내세요 : 60seconds wait...")
+
+    while time.time() - start_time < wait_time:
+        if (time.time() - start_time) % 10 == 0:
+            print(time.time() - start_time)
+        
+        # 메시지 수신
+        response = bot.getUpdates()
+        if response:
+            if response[-1]['message']['date'] - start_time > 0:
+                # 가장 최근 메시지의 채팅 ID 반환
+                chat_id = response[-1]['message']['chat']['id']
+                name = response[-1]['message']['text']
+                return chat_id, name
+
+    # 대기 시간 동안 아무 메시지도 수신되지 않은 경우 None 반환
+    return None, None
     while time.time() - start_time < wait_time:
         if (time.time() - start_time % 10) == 0:
             print(time.time() - start_time)
