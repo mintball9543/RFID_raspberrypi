@@ -59,22 +59,6 @@ def telbot_get_chatid():
 
     # 대기 시간 동안 아무 메시지도 수신되지 않은 경우 None 반환
     return None, None
-    while time.time() - start_time < wait_time:
-        if (time.time() - start_time % 10) == 0:
-            print(time.time() - start_time)
-        
-        # 메시지 수신
-        response = bot.getUpdates()
-        if response:
-            if response[-1]['message']['date'] - start_time > 0:
-                # 가장 최근 메시지의 채팅 ID 반환
-                chat_id = response[-1]['message']['chat']['id']
-                name = response[-1]['text']
-                return chat_id, name
-    
-    # 대기 시간 동안 아무 메시지도 수신되지 않은 경우 None 반환
-    return None, None
-
 
 def register(id):
     """
@@ -95,9 +79,10 @@ def register(id):
     GPIO.output(green_led, True)
     print("다시 한번 등록할 카드 태그")
     reader.write(str(chat_id))
-    id_name[id] = name
+    id_name[chat_id] = name
     GPIO.output(green_led, False)
     print("카드 등록 완료")
+    sleep(2)
 
 def send_telegram_message(id, t):
     """
