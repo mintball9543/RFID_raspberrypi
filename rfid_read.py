@@ -42,7 +42,7 @@ def telbot_get_chatid():
     start_time = time.time()
     wait_time = 60
 
-    print("제공되었던 봇으로 아무 메시지를 보내세요 : 30seconds wait...")
+    print("제공되었던 봇으로 아무 메시지를 보내세요 : 60seconds wait...")
     while time.time() - start_time < wait_time:
         if (time.time() - start_time % 10) == 0:
             print(time.time() - start_time)
@@ -103,6 +103,7 @@ def open_door():
     servo.start(2.5)
     # duty cycle을 12.5%로 변경
     servo.ChangeDutyCycle(12.5)
+    sleep(2)
 
 def close_door():
     """
@@ -114,7 +115,7 @@ def close_door():
     servo.start(2.5)
     # duty cycle을 5%로 변경
     servo.ChangeDutyCycle(5)
-
+    sleep(2)
 
 # 메인부분
 try:
@@ -133,6 +134,7 @@ try:
             id, text = reader.read()
             if(id == manage_id):
                 print("등록취소")
+                sleep(2)
                 continue
             register(id)
             continue
