@@ -161,7 +161,7 @@ try:
         if id in data_id:
             # 텔레그램 봇으로 메시지 전송
             send_telegram_message(text)
-            log_data(id, id_name[id])
+            log_data(id, id_name[text])
             # 서보 모터로 문 오픈
             # green_led
             open_door()
