@@ -45,9 +45,10 @@ def telbot_get_chatid():
     start_time = time.time()
     wait_time = 60
 
-    print("제공되었던 봇으로 아무 메시지를 보내세요 : 30seconds wait...")
+    print("제공되었던 봇으로 이름을 보내세요 : 60seconds wait...")
+
     while time.time() - start_time < wait_time:
-        if (time.time() - start_time % 10) == 0:
+        if (time.time() - start_time) % 10 == 0:
             print(time.time() - start_time)
         
         # 메시지 수신
@@ -56,12 +57,11 @@ def telbot_get_chatid():
             if response[-1]['message']['date'] - start_time > 0:
                 # 가장 최근 메시지의 채팅 ID 반환
                 chat_id = response[-1]['message']['chat']['id']
-                name = response[-1]['text']
+                name = response[-1]['message']['text']
                 return chat_id, name
-    
+
     # 대기 시간 동안 아무 메시지도 수신되지 않은 경우 None 반환
     return None, None
-
 
 def register(id):
     """
@@ -82,9 +82,10 @@ def register(id):
     GPIO.output(green_led, True)
     print("다시 한번 등록할 카드 태그")
     reader.write(str(chat_id))
-    id_name[id] = name
+    id_name[chat_id] = name
     GPIO.output(green_led, False)
     print("카드 등록 완료")
+    sleep(2)
 
 def send_telegram_message(id, t = datetime.now()):
     """
@@ -106,6 +107,7 @@ def open_door():
     servo.start(2.5)
     # duty cycle을 12.5%로 변경
     servo.ChangeDutyCycle(12.5)
+    sleep(2)
 
 def close_door():
     """
@@ -117,6 +119,7 @@ def close_door():
     servo.start(2.5)
     # duty cycle을 5%로 변경
     servo.ChangeDutyCycle(5)
+<<<<<<< HEAD
 
 def log_data(tag_id, name, time = datetime.now()):
     """
@@ -129,6 +132,9 @@ def log_data(tag_id, name, time = datetime.now()):
         writer = csv.writer(f)
         writer.writerow([tag_id, name, time])
 
+=======
+    sleep(2)
+>>>>>>> 099780fac3678368521a730452e19bf285786684
 
 # 메인부분
 # 로그 파일 존재하지 않을 시 생성
@@ -152,6 +158,7 @@ try:
             id, text = reader.read()
             if(id == manage_id):
                 print("등록취소")
+                sleep(2)
                 continue
             register(id)
             continue
