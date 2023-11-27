@@ -9,6 +9,8 @@ from time import sleep
 from datetime import datetime
 import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
+import csv
+import os
 
 # 전역변수
 manage_id = 659122598553
@@ -18,6 +20,7 @@ red_led = 18
 green_led = 40
 servo_pin = 12
 id_name = dict()
+path = "/home/pi/Desktop/RFID/RFID.csv"
 
 # 봇 토큰을 사용하여 봇을 초기화
 bot_token = '6873483008:AAEh14eISGJdMR_zRP861w_FMrkrYUcd1t8'
@@ -83,7 +86,7 @@ def register(id):
     GPIO.output(green_led, False)
     print("카드 등록 완료")
 
-def send_telegram_message(id, t):
+def send_telegram_message(id, t = datetime.now()):
     """
     텔레그램 메시지 전송 함수
     id: chat id
@@ -115,8 +118,24 @@ def close_door():
     # duty cycle을 5%로 변경
     servo.ChangeDutyCycle(5)
 
+def log_data(tag_id, name, time = datetime.now()):
+    """
+    로그 데이터를 csv 파일에 저장하는 함수
+    tag_id: RFID 태그 id
+    name: RFID 태그 id에 대응하는 이름
+    time: 시간
+    """
+    with open(path, 'a', encoding='utf-8', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow([tag_id, name, time])
+
 
 # 메인부분
+# 로그 파일 존재하지 않을 시 생성
+if not os.path.isfile(path):
+    with open(path, 'w', encoding='utf-8', newline='') as f:
+        pass
+
 try:
     while True:
         id, text = reader.read()
@@ -139,8 +158,8 @@ try:
         
         if id in data_id:
             # 텔레그램 봇으로 메시지 전송
-            send_telegram_message(text, datetime.now())
-            
+            send_telegram_message(text)
+            log_data(id, id_name[id])
             # 서보 모터로 문 오픈
             # green_led
             open_door()
