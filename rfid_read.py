@@ -107,7 +107,7 @@ def open_door():
     servo.start(2.5)
     # duty cycle을 12.5%로 변경
     servo.ChangeDutyCycle(12.5)
-    sleep(2)
+    sleep(0.5)
 
 def close_door():
     """
@@ -119,7 +119,7 @@ def close_door():
     servo.start(2.5)
     # duty cycle을 5%로 변경
     servo.ChangeDutyCycle(5)
-    sleep(2)
+    sleep(0.5)
 
 def log_data(tag_id, name, time = datetime.now()):
     """
