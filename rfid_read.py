@@ -20,7 +20,7 @@ red_led = 18
 green_led = 40
 servo_pin = 12
 id_name = dict()
-path = "/home/pi/Desktop/RFID/RFID.csv"
+path = "/home/hanbat/RFID_raspberrypi/RFID.csv"
 
 # 봇 토큰을 사용하여 봇을 초기화
 bot_token = '6873483008:AAEh14eISGJdMR_zRP861w_FMrkrYUcd1t8'
