@@ -107,6 +107,7 @@ def open_door():
     servo.start(2.5)
     # duty cycle을 12.5%로 변경
     servo.ChangeDutyCycle(12.5)
+    sleep(2)
 
 def close_door():
     """
@@ -118,6 +119,7 @@ def close_door():
     servo.start(2.5)
     # duty cycle을 5%로 변경
     servo.ChangeDutyCycle(5)
+<<<<<<< HEAD
 
 def log_data(tag_id, name, time = datetime.now()):
     """
@@ -130,6 +132,9 @@ def log_data(tag_id, name, time = datetime.now()):
         writer = csv.writer(f)
         writer.writerow([tag_id, name, time])
 
+=======
+    sleep(2)
+>>>>>>> 099780fac3678368521a730452e19bf285786684
 
 # 메인부분
 # 로그 파일 존재하지 않을 시 생성
