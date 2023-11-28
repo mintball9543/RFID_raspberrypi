@@ -113,7 +113,7 @@ def close_door():
     servo.ChangeDutyCycle(5)
     sleep(2)
 
-def log_data(tag_id, name, time= datetime.now()):
+def log_data(tag_id, name, time=datetime.now()):
     """
     로그 데이터를 csv 파일에 저장하는 함수
     tag_id: RFID 태그 id
