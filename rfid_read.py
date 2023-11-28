@@ -79,7 +79,11 @@ def register(id):
     print("카드 등록 완료")
     sleep(2)
 
+<<<<<<< HEAD
 def send_telegram_message(id, t=datetime.now()):
+=======
+def send_telegram_message(id, t = datetime.now()):
+>>>>>>> 92c50e64016e0653526d36be9fdac624aa0ff6cb
     """
     텔레그램 메시지 전송 함수
     id: chat id
@@ -99,7 +103,7 @@ def open_door():
     servo.start(2.5)
     # duty cycle을 12.5%로 변경
     servo.ChangeDutyCycle(12.5)
-    sleep(2)
+    sleep(0.5)
 
 def close_door():
     """
@@ -111,7 +115,19 @@ def close_door():
     servo.start(2.5)
     # duty cycle을 5%로 변경
     servo.ChangeDutyCycle(5)
-    sleep(2)
+    sleep(0.5)
+
+def log_data(tag_id, name, time = datetime.now()):
+    """
+    로그 데이터를 csv 파일에 저장하는 함수
+    tag_id: RFID 태그 id
+    name: RFID 태그 id에 대응하는 이름
+    time: 시간
+    """
+    with open(path, 'a', encoding='utf-8', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow([tag_id, name, time])
+
 
 def log_data(tag_id, name, time=datetime.now()):
     """
