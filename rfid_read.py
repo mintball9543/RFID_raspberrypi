@@ -1,7 +1,5 @@
-"""
 sudo pip3 install spidev
 sudo pip3 install mfrc522
-"""
 
 import telepot
 import time
@@ -9,28 +7,27 @@ from time import sleep
 from datetime import datetime
 import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
+import csv
+import os
 
 # 전역변수
 manage_id = 659122598553
-data_id = [659122598553] #데이터 초기화
-reader = SimpleMFRC522() #RFID 객체 생성
-red_led = 18
-green_led = 40
+data_id = [659122598553] # 데이터 초기화
+reader = SimpleMFRC522() # RFID 객체 생성
+red_led = 11
 servo_pin = 12
 id_name = dict()
+path = "/home/hanbat/RFID_raspberrypi/RFID.csv"
 
 # 봇 토큰을 사용하여 봇을 초기화
 bot_token = '6873483008:AAEh14eISGJdMR_zRP861w_FMrkrYUcd1t8'
 bot = telepot.Bot(bot_token)
 
 # GPIO 세팅
-GPIO.setmode(GPIO.BOARD) # BOARD: Pin 번호 사용
-GPIO.setup(servo_pin, GPIO.OUT) # 서보모터
-GPIO.setup(red_led,GPIO.OUT)
-GPIO.setup(green_led,GPIO.OUT)
-GPIO.output(red_led, False) # red
-GPIO.output(green_led, False) # green
-
+GPIO.setmode(GPIO.BOARD)  # BOARD: Pin 번호 사용
+GPIO.setup(servo_pin, GPIO.OUT)  # 서보모터
+GPIO.setup(red_led, GPIO.OUT)
+GPIO.output(red_led, False)  # red
 
 def telbot_get_chatid():
     """
@@ -47,7 +44,7 @@ def telbot_get_chatid():
     while time.time() - start_time < wait_time:
         if (time.time() - start_time) % 10 == 0:
             print(time.time() - start_time)
-        
+       
         # 메시지 수신
         response = bot.getUpdates()
         if response:
@@ -70,21 +67,19 @@ def register(id):
 
     chat_id, name = telbot_get_chatid()
 
-    if chat_id == None:
+    if chat_id is None:
         data_id.remove(id)
         print("텔레그램 봇에 메시지를 보내지 않아 등록이 취소되었습니다.")
         return
-    
+   
     # 새로운 데이터 쓰기
-    GPIO.output(green_led, True)
     print("다시 한번 등록할 카드 태그")
     reader.write(str(chat_id))
     id_name[chat_id] = name
-    GPIO.output(green_led, False)
     print("카드 등록 완료")
     sleep(2)
 
-def send_telegram_message(id, t):
+def send_telegram_message(id, t=datetime.now()):
     """
     텔레그램 메시지 전송 함수
     id: chat id
@@ -118,7 +113,23 @@ def close_door():
     servo.ChangeDutyCycle(5)
     sleep(2)
 
+def log_data(tag_id, name, time= datetime.now()):
+    """
+    로그 데이터를 csv 파일에 저장하는 함수
+    tag_id: RFID 태그 id
+    name: RFID 태그 id에 대응하는 이름
+    time: 시간
+    """
+    with open(path, 'a', encoding='utf-8', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow([tag_id, name, time])
+
 # 메인부분
+# 로그 파일 존재하지 않을 시 생성
+if not os.path.isfile(path):
+    with open(path, 'w', encoding='utf-8', newline='') as f:
+        pass
+
 try:
     while True:
         id, text = reader.read()
@@ -128,35 +139,29 @@ try:
         except:
             print("text 변수가 chat_id가 아님")
 
-        if(id == manage_id):
+        if id == manage_id:
             id, text = reader.read()
             print('등록할 카드 태그')
             sleep(2)
             id, text = reader.read()
-            if(id == manage_id):
+            if id == manage_id:
                 print("등록취소")
                 sleep(2)
                 continue
             register(id)
             continue
-        
+       
         if id in data_id:
             # 텔레그램 봇으로 메시지 전송
-            send_telegram_message(text, datetime.now())
-            
+            send_telegram_message(text)
+            log_data(id, id_name[text])
             # 서보 모터로 문 오픈
-            # green_led
             open_door()
-            GPIO.output(green_led, True)
-            
-            sleep(5) # 5초 대기
-            
+            sleep(5)  # 5초 대기
             # 서보 모터로 문 닫기
             close_door()
-            GPIO.output(green_led, False)
         else:
             print("Access denied")
-            
             # red_led
             GPIO.output(red_led, True)
             sleep(2)
@@ -166,14 +171,3 @@ except KeyboardInterrupt:
     GPIO.cleanup()
 finally:
     GPIO.cleanup()
-
-
-
-"""
-#시간 구하기
-now = datetime.now()
-print(now)
-
-# 출력결과
-# 2021-11-11 13:30:05.551179
-"""
