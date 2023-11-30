@@ -78,7 +78,6 @@ def register(id):
 
 
 def send_telegram_message(id, t = datetime.now()):
-
     """
     텔레그램 메시지 전송 함수
     id: chat id
@@ -124,17 +123,6 @@ def log_data(tag_id, name, time = datetime.now()):
         writer.writerow([tag_id, name, time])
 
 
-def log_data(tag_id, name, time=datetime.now()):
-    """
-    로그 데이터를 csv 파일에 저장하는 함수
-    tag_id: RFID 태그 id
-    name: RFID 태그 id에 대응하는 이름
-    time: 시간
-    """
-    with open(path, 'a', encoding='utf-8', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow([tag_id, name, time])
-
 # 메인부분
 # 로그 파일 존재하지 않을 시 생성
 if not os.path.isfile(path):
@@ -154,7 +142,6 @@ try:
             id, text = reader.read()
             print('등록또는 삭제할 카드 태그')
             sleep(2)
-            id, text = reader.read()
             if id == manage_id:
                 print("등록취소")
                 sleep(2)
