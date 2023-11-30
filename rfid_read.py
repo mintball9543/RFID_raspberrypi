@@ -77,8 +77,6 @@ def register(id):
     sleep(2)
 
 
-def send_telegram_message(id, t=datetime.now()):
-=======
 def send_telegram_message(id, t = datetime.now()):
 
     """
@@ -154,14 +152,19 @@ try:
 
         if id == manage_id:
             id, text = reader.read()
-            print('등록할 카드 태그')
+            print('등록또는 삭제할 카드 태그')
             sleep(2)
             id, text = reader.read()
             if id == manage_id:
                 print("등록취소")
                 sleep(2)
-                continue
-            register(id)
+            elif id in data_id:
+                print("삭제")
+                data_id.remove(id)
+                id_name.remove(text)
+                sleep(2)
+            else:
+                register(id)
             continue
        
         if id in data_id:
