@@ -1,6 +1,3 @@
-sudo pip3 install spidev
-sudo pip3 install mfrc522
-
 import telepot
 import time
 from time import sleep
@@ -79,11 +76,9 @@ def register(id):
     print("카드 등록 완료")
     sleep(2)
 
-<<<<<<< HEAD
-def send_telegram_message(id, t=datetime.now()):
-=======
+
 def send_telegram_message(id, t = datetime.now()):
->>>>>>> 92c50e64016e0653526d36be9fdac624aa0ff6cb
+
     """
     텔레그램 메시지 전송 함수
     id: chat id
