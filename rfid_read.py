@@ -12,7 +12,7 @@ manage_id = 659122598553
 data_id = [659122598553] # 데이터 초기화
 reader = SimpleMFRC522() # RFID 객체 생성
 red_led = 11
-blue_led = 7
+white_led = 40
 servo_pin = 12
 id_name = dict()
 path = "/home/hanbat/RFID_raspberrypi/RFID.csv"
@@ -30,9 +30,9 @@ bot = telepot.Bot(bot_token)
 GPIO.setmode(GPIO.BOARD)  # BOARD: Pin 번호 사용
 GPIO.setup(servo_pin, GPIO.OUT)  # 서보모터
 GPIO.setup(red_led, GPIO.OUT)
-GPIO.setup(blue_led, GPIO.OUT)
+GPIO.setup(white_led, GPIO.OUT)
 GPIO.output(red_led, False)
-GPIO.output(blue_led, False)
+GPIO.output(white_led, False)
 
 def telbot_get_chatid():
     """
@@ -82,9 +82,9 @@ def register(id):
     reader.write(str(chat_id))
     id_name[chat_id] = name
     print("카드 등록 완료")
-    GPIO.output(blue_led, True)
+    GPIO.output(white_led, True)
     sleep(2)
-    GPIO.output(blue_led, False)
+    GPIO.output(white_led, False)
 
 
 def send_telegram_message(id, t = datetime.now()):
@@ -169,11 +169,11 @@ try:
             
             print("Access granted")
             open_door()
-            GPIO.output(blue_led, True)
+            GPIO.output(white_led, True)
 
             sleep(3)  # 3초 대기
             
-            GPIO.output(blue_led, False)
+            GPIO.output(white_led, False)
             close_door()
         else:
             print("Access denied")
