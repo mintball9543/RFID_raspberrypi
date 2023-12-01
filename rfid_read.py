@@ -155,7 +155,7 @@ try:
             elif id in data_id:
                 print("삭제")
                 data_id.remove(id)
-                id_name.remove(text)
+                del id_name[text]
                 sleep(2)
             
             else:
