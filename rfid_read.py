@@ -33,6 +33,7 @@ GPIO.setup(red_led, GPIO.OUT)
 GPIO.setup(white_led, GPIO.OUT)
 GPIO.output(red_led, False)
 GPIO.output(white_led, False)
+GPIO.setwarnings(False)
 
 def telbot_get_chatid():
     """
@@ -155,7 +156,7 @@ try:
             elif id in data_id:
                 print("삭제")
                 data_id.remove(id)
-                del id_name[text]
+                del id_name[int(text)]
                 sleep(2)
             
             else:
