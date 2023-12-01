@@ -16,6 +16,11 @@ servo_pin = 12
 id_name = dict()
 path = "/home/hanbat/RFID_raspberrypi/RFID.csv"
 
+# 로그 파일 존재하지 않을 시 생성
+if not os.path.isfile(path):
+    with open(path, 'w', encoding='utf-8', newline='') as f:
+        pass
+
 # 봇 토큰을 사용하여 봇을 초기화
 bot_token = '6873483008:AAEh14eISGJdMR_zRP861w_FMrkrYUcd1t8'
 bot = telepot.Bot(bot_token)
@@ -124,11 +129,6 @@ def log_data(tag_id, name, time = datetime.now()):
 
 
 # 메인부분
-# 로그 파일 존재하지 않을 시 생성
-if not os.path.isfile(path):
-    with open(path, 'w', encoding='utf-8', newline='') as f:
-        pass
-
 try:
     while True:
         id, text = reader.read()
@@ -139,9 +139,10 @@ try:
             print("text 변수가 chat_id가 아님")
 
         if id == manage_id:
-            id, text = reader.read()
-            print('등록또는 삭제할 카드 태그')
             sleep(2)
+            print("등록또는 삭제할 카드 태그")
+            id, text = reader.read()
+            
             if id == manage_id:
                 print("등록취소")
                 sleep(2)
