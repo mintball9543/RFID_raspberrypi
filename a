@@ -1,0 +1,232 @@
+[33mcommit 92c50e64016e0653526d36be9fdac624aa0ff6cb[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Mon Nov 27 11:49:54 2023 +0900
+
+    servo delay time edit
+
+[33mcommit 987182c4dedb976bcd2e4767f25bc7b2075d3c5f[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Mon Nov 27 11:32:11 2023 +0900
+
+    servo delay time
+
+[33mcommit f7c77ad133843141a8db15a264ef1fca9b600c77[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Mon Nov 27 10:36:39 2023 +0900
+
+    key error
+
+[33mcommit 790491c2d2debfad4c230f485b80ca8a80fbf367[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Mon Nov 27 10:33:46 2023 +0900
+
+    path edit
+
+[33mcommit e1352a9cb249036c203f9b8fd4cde20e006430c3[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Mon Nov 27 10:31:59 2023 +0900
+
+    commit reset
+
+[33mcommit a68fe89af52fb0b318d443768cca2d75cc7a18c7[m
+Merge: 4ce8e73 4ed7880
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Mon Nov 27 10:30:51 2023 +0900
+
+    Merge branch 'main' of https://github.com/mintball9543/RFID_raspberrypi
+
+[33mcommit 4ce8e73d3ece863603af9ce2db58523a4c331105[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Mon Nov 27 10:30:29 2023 +0900
+
+    commit reset
+
+[33mcommit 4ed78807a3ab72813d45e73158864a3e795ce931[m
+Merge: 434ba31 099780f
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Mon Nov 27 10:14:49 2023 +0900
+
+    path edit
+
+[33mcommit 434ba318837b6049667a215ed89cefb2eaea07bc[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Mon Nov 27 10:10:48 2023 +0900
+
+    log data to csv
+
+[33mcommit 099780fac3678368521a730452e19bf285786684[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Sun Nov 26 17:04:25 2023 +0900
+
+    dictionary keyerror
+
+[33mcommit d74c11ef16888efd1e6d5c71cb90a141cf6a8ab5[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Sun Nov 26 16:56:49 2023 +0900
+
+    key error edit
+
+[33mcommit e775e6c062a2d094f2c5e30fc961e9dbf6c8a760[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Sun Nov 26 16:50:07 2023 +0900
+
+    register cancel sleep insert
+
+[33mcommit ccb9a1768d05482264021afb303fcfba5b694357[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Sat Nov 25 21:41:03 2023 +0900
+
+    id to name
+
+[33mcommit 05231b12210bcc32aac92d72a9980211445000ab[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Sat Nov 25 18:26:17 2023 +0900
+
+    telegram bug edit
+
+[33mcommit d7e65ea840afe62f73c41eddb6891a79468b1a86[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Sat Nov 25 18:23:05 2023 +0900
+
+    telegram edit
+
+[33mcommit 6be286773b347943bae17f6a78bde69dde6753cb[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Sat Nov 25 16:57:40 2023 +0900
+
+    type test
+
+[33mcommit ed41a252dd9109f151ab40f920f8d015fd5e5a8a[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Fri Nov 24 16:15:05 2023 +0900
+
+    tel edit
+
+[33mcommit 28fffc61c6061be75ae255244214770c4ed70c69[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Fri Nov 24 15:46:41 2023 +0900
+
+    tel
+
+[33mcommit 646906f21abbbd6ab9d1d744fc854ea047f672c2[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Fri Nov 24 15:41:36 2023 +0900
+
+    time edit
+
+[33mcommit bf5f9c37059a8725d2451333e48331efaa5d9c4a[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Fri Nov 24 15:36:45 2023 +0900
+
+    tel edit
+
+[33mcommit 8657a6b9228a6fbf673123c753ae547fd4fd565e[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Fri Nov 24 15:34:43 2023 +0900
+
+    tel edit
+
+[33mcommit 6c9d99673d317a983d3bd37ae78dbc423c0e2b44[m
+Merge: 6c3b4bd 608d861
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Fri Nov 24 15:15:12 2023 +0900
+
+    Merge branch 'main' of https://github.com/mintball9543/RFID_raspberrypi
+
+[33mcommit 6c3b4bd6f6ab62bc307e838385f9d9999c094913[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Fri Nov 24 15:13:22 2023 +0900
+
+    edit servo_pin
+
+[33mcommit 608d861c242dfbe4a0caf11317942e4338843e6b[m
+Author: mintball9543 <117986592+mintball9543@users.noreply.github.com>
+Date:   Fri Nov 24 15:06:42 2023 +0900
+
+    Rename RFID_read.py to rfid_read.py
+
+[33mcommit 2d3e633aaa39caf5269dba4afa5ba377bef15648[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Fri Nov 24 15:02:03 2023 +0900
+
+    edit name
+
+[33mcommit ec8a74ad27460b4aef20d54cb637f911d9893567[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Fri Nov 24 14:23:27 2023 +0900
+
+    주석 edit
+
+[33mcommit 27f90287a2502fb4564fbd10928fb3732556a1c1[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Fri Nov 24 14:06:35 2023 +0900
+
+    servo motor sg90
+
+[33mcommit 995145e718c598833e994a89eca1713c59245bad[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Fri Nov 17 17:01:07 2023 +0900
+
+    ddd
+
+[33mcommit 0ff6e04745c4ee9a4487e78707e4eaea2f9abec9[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Fri Nov 17 16:58:53 2023 +0900
+
+    d
+
+[33mcommit 3bcc0466b9df25d8785b95192580bb55e10512dc[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Fri Nov 17 16:47:16 2023 +0900
+
+    manage_id edit
+
+[33mcommit 355063597675db8d3779932756318cacb90dab03[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Fri Nov 17 16:39:30 2023 +0900
+
+    manage card
+
+[33mcommit e67ac4ee7e18fd890689c248569c05ef7b115895[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Fri Nov 17 15:34:29 2023 +0900
+
+    led
+
+[33mcommit db43acfa4fdf36e3a12dd7daca41e0a49f9391fd[m
+Merge: bb47e68 4083f3e
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Fri Nov 17 13:37:54 2023 +0900
+
+    Merge branch 'main' of https://github.com/mintball9543/RFID_raspberrypi
+
+[33mcommit bb47e6871a2fe3e06b5bcb7d4632d2ea811b4e20[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Fri Nov 17 13:33:23 2023 +0900
+
+    telegram 구현
+
+[33mcommit 4083f3e68fe80b6b7f8a898be0fcb3ba658bc79d[m
+Author: mintball9543 <117986592+mintball9543@users.noreply.github.com>
+Date:   Fri Nov 10 09:03:49 2023 +0900
+
+    Update README.md
+
+[33mcommit a337e671a1b7d53af83ce4463edb23d683fd7ac7[m
+Merge: 6b063c2 bad9d06
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Thu Nov 9 16:45:09 2023 +0900
+
+    Merge branch 'main' of https://github.com/mintball9543/RFID_raspberrypi
+
+[33mcommit 6b063c21e23d856518a7cac2917a84c7c16d7850[m
+Author: mintball9543 <minseokcomputer@gmail.com>
+Date:   Thu Nov 9 16:37:00 2023 +0900
+
+    skeleton code
+
+[33mcommit bad9d0674bd35d1b6926c57e3c1e4451c484bcc3[m
+Author: mintball9543 <117986592+mintball9543@users.noreply.github.com>
+Date:   Thu Nov 9 16:32:40 2023 +0900
+
+    Initial commit
